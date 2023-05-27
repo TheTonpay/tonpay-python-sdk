@@ -1,1 +1,2 @@
 gitlint==0.19.1
+pre-commit==3.3.2
