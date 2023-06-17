@@ -1,13 +1,13 @@
 [project]
 name = "tonpay"
-description = "Simple type checking and type conversion library"
+description = "SDK for crypto payment system Tonpay"
 version = "0.0.1"
 authors = [
     { name = "Arterialist", email = "arterialist@thetonpay.app" }
 ]
 dependencies = []
 readme = "README.md"
-license = { file="LICENSE" }
+license = { file = "LICENSE" }
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -25,5 +25,11 @@ classifiers = [
 
 
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = [
+    "setuptools>=61.0",
+    "ton==0.26",
+    "tonsdk==1.0.13",
+    "tontools==2.1.0",
+    "requests~=2.31.0"
+]
 build-backend = "setuptools.build_meta"
