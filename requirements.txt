@@ -1,2 +1,6 @@
 gitlint==0.19.1
-pre-commit==3.3.2
+pre-commit==3.3.3
+ton==0.26
+tonsdk==1.0.13
+tontools==2.1.0
+requests~=2.31.0
