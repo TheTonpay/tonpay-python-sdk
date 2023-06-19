@@ -44,7 +44,7 @@ class Store:
     def get_address(self):
         return self.address
 
-    async def edit_store(self, name: str, description: str, image: str, webhook: str, mcc_code: int):
+    async def edit(self, name: str, description: str, image: str, webhook: str, mcc_code: int):
         """
         This method edits the store data
 
