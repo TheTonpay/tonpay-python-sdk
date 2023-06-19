@@ -265,6 +265,40 @@ class Store:
             url_format
         )
 
+    async def get_purchase_request_invoice(self, invoice: PurchaseRequestInvoice):
+        if not invoice.invoice_id:
+            raise ValueError("Invoice ID is required")
+
+        if len(invoice.invoice_id) > 120:
+            raise ValueError("Invoice ID must not be longer than 120 characters")
+
+        if invoice.metadata and len(invoice.metadata) > 500:
+            raise ValueError("Metadata must not be longer than 500 characters")
+
+        if invoice.amount < 0:
+            raise ValueError("Amount must be greater than 0")
+
+        merchant_address = await self.get_owner()
+        return Invoice(
+            address=InvoiceContract(None, self._client, config=InvoiceConfig(
+                self.address,
+                merchant_address.to_string(True, True, True),
+                "EQD2wz8Rq5QDj9iK2Z_leGQu-Rup__y-Z4wo8Lm7-tSD6Iz2",
+                False,
+                Address(ZERO_ADDRESS).to_string(True, True, True),
+                invoice.invoice_id,
+                invoice.metadata,
+                invoice.amount * pow(10, invoice.currency.decimals),
+                False,
+                True,
+                True,
+                invoice.currency.address,
+                Cell.one_from_boc(base64.b64decode(invoice.currency.wallet_code))
+            )).address.to_string(True, True, True),
+            sender=self._sender,
+            client=self._client
+        )
+
     async def apply_update(self, new_data: Optional[Cell] = None):
         if not self._sender:
             raise Exception("This store is read-only. Pass the sender to the constructor to make changes.")
